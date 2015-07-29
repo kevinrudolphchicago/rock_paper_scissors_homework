@@ -1,0 +1,129 @@
+ <hr>
+
+  <div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h3 class="panel-title text-center"><%= @user_move %></h3>
+          </div>
+          <div class="panel-body">
+            <img src="/assets/images/<%= @user_move %>.png" class="img-responsive">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title text-center"><%= @computer_move %></h3>
+          </div>
+          <div class="panel-body">
+            <img src="/assets/images/<%= @computer_move %>.png" class="img-responsive">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="well">
+          <h1 class="text-center"><%= @outcome %>!</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h5 class="panel-title">Summary</h5>
+      </div>
+
+      <table class="table table-hover table-striped">
+        <tr>
+          <th>When you played</th>
+          <th>you won</th>
+          <th>you lost</th>
+          <th>you tied</th>
+        </tr>
+
+         <tr>
+          <td>rock</td>
+          <td><%= Move.where(:user_move => "rock").where(:user_wins => 1).count%></td>
+          <td><%= Move.where(:user_move => "rock").where(:user_wins => 0).count%></td>
+          <td><%= Move.where(:user_move => "rock").where(:tie => 1).count%></td>
+        </tr>
+
+        <tr>
+          <td>paper</td>
+         <td><%= Move.where(:user_move => "paper").where(:user_wins => 1).count%></td>
+          <td><%= Move.where(:user_move => "paper").where(:user_wins => 0).count%></td>
+          <td><%= Move.where(:user_move => "paper").where(:tie => 1).count%></td>
+        </tr>
+
+        <tr>
+          <td>scissors</td>
+         <td><%= Move.where(:user_move => "scissors").where(:user_wins => 1).count%></td>
+          <td><%= Move.where(:user_move => "scissors").where(:user_wins => 0).count%></td>
+          <td><%= Move.where(:user_move => "scissors").where(:tie => 1).count%></td>
+        </tr>
+
+        <tr>
+          <th>Total</th>
+          <th><%= Move.where(:user_wins => 1).count %></th>
+          <th><%= Move.where(:user_wins => 0).count %></th>
+          <th><%= Move.where(:tie => 1).count %></th>
+        </tr>
+      </table>
+    </div>
+
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h5 class="panel-title">
+          Complete history
+          <%= Move.where(:user_move => "scissors").count + Move.where(:user_move => "paper").count + Move.where(:user_move => "rock").count %>
+        </h5>
+      </div>
+
+      <table class="table table-hover table-striped">
+        <tr>
+          <th>User Move</th>
+          <th>Computer Move</th>
+          <th>User Wins</th>
+          <th>Computer Wins</th>
+          <th>Tie</th>
+        </tr>
+
+          <% @all_moves.each do |zebra| %>
+    <tr>
+      <td>
+        <%= zebra.user_move %>
+      </td>
+
+      <td>
+        <%= zebra.computer_move %>
+      </td>
+
+      <td>
+        <%= zebra.user_wins %>
+      </td>
+
+      <td>
+          <%= zebra.computer_wins %>
+      </td>
+      <td>
+        <%= zebra.tie %>
+      </td>
+    </tr>
+  <% end %>
+
+
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
